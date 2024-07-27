@@ -16,7 +16,7 @@ function updateAllDOMNodes() {
       node.setAttribute('data-changed', 'true');
 
       const tagName = node.tagName.toLowerCase();
-      if ((tagName === 'span' || 'p' || /^h[1-6]$/.test(tagName)) && node.textContent.trim()) {
+      if ((tagName === 'span' || tagName === 'p' || /^h[1-6]$/.test(tagName)) && node.textContent.trim()) {
         node.childNodes.forEach(child => {
           if (child.nodeType === Node.TEXT_NODE && child.textContent.trim()) {
             child.textContent = 'MODIFICATED TEXT';
@@ -60,5 +60,10 @@ document.getElementById('modificate-dom').addEventListener('click', () => {
   const startTime = performance.now();
   const updatedNodesCount = updateAllDOMNodes();
   const endTime = performance.now();
-  console.log(`Time taken to update ${updatedNodesCount} DOM nodes: ${endTime - startTime} milliseconds`);
+
+  const resultMessage = `Time taken to update ${updatedNodesCount} DOM nodes: ${endTime - startTime} milliseconds`;
+  console.log(resultMessage);
+
+  const resultDiv = document.getElementById('result');
+  resultDiv.textContent = resultMessage;
 });
